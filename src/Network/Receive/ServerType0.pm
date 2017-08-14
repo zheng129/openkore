@@ -586,6 +586,8 @@ sub new {
 		#'09DB' => ['actor_moved', 'v C a4 a4 v3 V v5 a4 v6 a4 a2 v V C2 a6 C2 v2 a9 Z*', [qw(len object_type ID charID walk_speed opt1 opt2 option type hair_style weapon shield lowhead tick tophead midhead hair_color clothes_color head_dir costume guildID emblemID manner opt3 stance sex coords xSize ySize lv font opt4 name)]],
 		'09DC' => ['actor_connected', 'v C a4 a4 v3 V v11 a4 a2 v V C2 a3 C2 v2 a9 Z*', [qw(len object_type ID charID walk_speed opt1 opt2 option type hair_style weapon shield lowhead tophead midhead hair_color clothes_color head_dir costume guildID emblemID manner opt3 stance sex coords xSize ySize lv font opt4 name)]],
 		'09DD' => ['actor_exists', 'v C a4 a4 v3 V v11 a4 a2 v V C2 a3 C3 v2 a9 Z*', [qw(len object_type ID charID walk_speed opt1 opt2 option type hair_style weapon shield lowhead tophead midhead hair_color clothes_color head_dir costume guildID emblemID manner opt3 stance sex coords xSize ySize act lv font opt4 name)]],
+
+		
 		'09FD' => ['actor_moved', 'v C a4 a4 v3 V v5 a4 v6 a4 a2 v V C2 a6 C2 v2 a9 Z*', [qw(len object_type ID charID walk_speed opt1 opt2 option type hair_style weapon shield lowhead tick tophead midhead hair_color clothes_color head_dir costume guildID emblemID manner opt3 stance sex coords xSize ySize lv font opt4 name)]],
 		'09FE' => ['actor_connected', 'v C a4 a4 v3 V v11 a4 a2 v V C2 a3 C2 v2 a9 Z*', [qw(len object_type ID charID walk_speed opt1 opt2 option type hair_style weapon shield lowhead tophead midhead hair_color clothes_color head_dir costume guildID emblemID manner opt3 stance sex coords xSize ySize lv font opt4 name)]],
 		'09FF' => ['actor_exists', 'v C a4 a4 v3 V v11 a4 a2 v V C2 a3 C3 v2 a9 Z*', [qw(len object_type ID charID walk_speed opt1 opt2 option type hair_style weapon shield lowhead tophead midhead hair_color clothes_color head_dir costume guildID emblemID manner opt3 stance sex coords xSize ySize act lv font opt4 name)]],
@@ -596,6 +598,7 @@ sub new {
 		'09DE' => ['private_message', 'v V Z25 Z*', [qw(len charID privMsgUser privMsg)]],
 		'09DF' => ['private_message_sent', 'C V', [qw(type charID)]],
 		'09F8' => ['quest_all_list3', 'v3 a*', [qw(len count unknown message)]],
+		'0A05' => ['rodex_add_item', 'C v3 C4 a8 a25 v a5', [qw(fail index amount nameID type identified broken upgrade cards options weight unknow)]],   # 53
 		'0A09' => ['deal_add_other', 'v C V C3 a8 a25', [qw(nameID type amount identified broken upgrade cards options)]],
 		'0A0A' => ['storage_item_added', 'v V v C4 a8 a25', [qw(index amount nameID type identified broken upgrade cards options)]],
 		'0A0B' => ['cart_item_added', 'v V v C4 a8 a25', [qw(index amount nameID type identified broken upgrade cards options)]],
@@ -604,44 +607,43 @@ sub new {
 		'0A0F' => ['cart_items_nonstackable', 'v a*', [qw(len itemInfo)]],
 		'0A10' => ['storage_items_nonstackable', 'v Z24 a*', [qw(len title itemInfo)]],
 		'0A11' => ['storage_items_nonstackable', 'v Z24 a*', [qw(len title itemInfo)]],
-		'0A23' => ['achievement_list', 'v', [qw(len)]],
-		'0A24' => ['achievement_update'],
 		'0A27' => ['hp_sp_changed', 'vV', [qw(type amount)]],
 		'0A28' => ['vending_confirm', 'C', [qw(success)]],
 		'0A2D' => ['character_equip', 'v Z24 x17 a*', [qw(len name itemInfo)]],
 		'0A30' => ['actor_info', 'a4 Z24 Z24 Z24 Z24 x4', [qw(ID name partyName guildName guildTitle)]],
-		'0A34' => ['senbei_amount', 'V', [qw(amount)]], #new senbei system (new cash currency)
-		#'0A3B' => ['hat_effect', 'v a4 C a*', [qw(len ID flag effect)]],
 		'0A3B' => ['misc_effect', 'v a4 C v', [qw(len ID flag effect)]], 
-		'C350' => ['senbei_vender_items_list'], #new senbei vender, need research
-		'08B4' => ['pet_capture_process'],
-		'0AB8' => ['blade_stop', 'a4 a4 V', [qw(sourceID targetID active)]],
+		'0A36' => ['monster_hp_info_tiny', 'a4 C', [qw(ID hp)]],
 		'0A95' => ['call_partner_feature_flag', 'C', [qw(type)]],
-		'0A2D' => ['character_equip', 'v Z24 x17 a*', [qw(len name itemInfo)]],
-		'0A07' => ['rodex_remove_item', 'C v3', [qw(result index amount weight)]],   # 9
-		'0A12' => ['rodex_open_write', 'Z24 C', [qw(name result)]],   # 27
+		'0AB8' => ['blade_stop', 'a4 a4 V', [qw(sourceID targetID active)]],
+		
+		#Senbei
+		'0A34' => ['senbei_amount', 'V', [qw(amount)]], #new senbei system (new cash currency)
+		'C350' => ['senbei_vender_items_list'], #new senbei vender, need research
+		
+		#Achievement
 		'0A23' => ['achievement_list', 'v V V v V V', [qw(len ach_count total_points rank current_rank_points next_rank_points)]], # -1
  		'0A24' => ['achievement_update', 'V v VVV C V10 V C', [qw(total_points rank current_rank_points next_rank_points ach_id completed objective1 objective2 objective3 objective4 objective5 objective6 objective7 objective8 objective9 objective10 completed_at reward)]], # 66
- 		'0A26' => ['achievement_reward_ack', 'C V', [qw(received ach_id)]], # 7
-		'0A28' => ['vending_confirm', 'C', [qw(success)]],
-		'0A36' => ['monster_hp_info_tiny', 'a4 C', [qw(ID hp)]],
-		'0A95' => ['call_partner_feature_flag', 'C', [qw(type)]],
-		'0A2D' => ['character_equip', 'v Z24 x17 a*', [qw(len name itemInfo)]],
-		'09F0' => ['rodex_mail_list', 'v C3', [qw(len type amount isEnd)]],   # -1
-		'09F6' => ['rodex_delete', 'C V2', [qw(type mailID1 mailID2)]],   # 11
-		'09ED' => ['rodex_write_result', 'C', [qw(fail)]],   # 3
+		'0A26' => ['achievement_reward_ack', 'C V', [qw(received ach_id)]], # 7
+		
+		#Rodex
+		'09E7' => ['unread_rodex', 'C', [qw(show)]],   # 3
 		'09EB' => ['rodex_read_mail', 'v C V2 v V2 C', [qw(len type mailID1 mailID2 text_len zeny1 zeny2 itemCount)]],   # -1
+		'09ED' => ['rodex_write_result', 'C', [qw(fail)]],   # 3
+		'09F0' => ['rodex_mail_list', 'v C3', [qw(len type amount isEnd)]],   # -1
 		'09F2' => ['rodex_get_zeny', 'V2 C2', [qw(mailID1 mailID2 type fail)]],   # 12
 		'09F4' => ['rodex_get_item', 'V2 C2', [qw(mailID1 mailID2 type fail)]],   # 12
+		'09F6' => ['rodex_delete', 'C V2', [qw(type mailID1 mailID2)]],   # 11
+		'0A07' => ['rodex_remove_item', 'C v3', [qw(result index amount weight)]],   # 9
+		'0A12' => ['rodex_open_write', 'Z24 C', [qw(name result)]],   # 27
 		'0A51' => ['rodex_check_player', 'V v2 Z24', [qw(char_id class base_level name)]],   # 34
-		'09E7' => ['unread_rodex', 'C', [qw(show)]],   # 3
-		'0A05' => ['rodex_add_item', 'C v3 C4 a8 a25 v a5', [qw(fail index amount nameID type identified broken upgrade cards options weight unknow)]],   # 53
 		'0A7D' => ['rodex_mail_list', 'v C3', [qw(len type amount isEnd)]],   # -1
-		'0A36' => ['monster_hp_info_tiny', 'a4 C', [qw(ID hp)]],
+		
+		#Captcha
 		'07E6' => ['captcha_session_ID', 'v V', [qw(ID generation_time)]], # 8
 		'07E8' => ['captcha_image', 'v a*', [qw(len image)]], # -1
 		'07E9' => ['captcha_answer', 'v C', [qw(code flag)]], # 5
-		'C350' => ['senbei_vender_items_list'], #new senbei vender, need research
+		'0A58' => ['captcha_image_header', 'v a4', [qw(image_size image_header)]], #8 bytes
+		'0A59' => ['captcha_image', 'v a4 a*', [qw(len image_header image)]],    #several
 	};
 
 	# Item RECORD Struct's
@@ -7992,6 +7994,11 @@ sub monster_hp_info_tiny {
 
 sub captcha_session_ID {
 	my ($self, $args) = @_;
+	
+	open my $DUMP_CAPTCHA, ">> captcha.log";
+	print $DUMP_CAPTCHA unpack('H*', $args->{RAW_MSG}) . "\n";
+	close $DUMP_CAPTCHA;
+	
 	debug $self->{packet_list}{$args->{switch}}->[0] . " " . join(', ', @{$args}{@{$self->{packet_list}{$args->{switch}}->[2]}}) . "\n";
 }
 
@@ -7999,6 +8006,11 @@ sub captcha_session_ID {
 # todo: debug + remove debug message
 sub captcha_image {
 	my ($self, $args) = @_;
+	
+	open my $DUMP_CAPTCHA, ">> captcha.log";
+	print $DUMP_CAPTCHA unpack('H*', $args->{RAW_MSG}) . "\n";
+	close $DUMP_CAPTCHA;
+	
 	debug $self->{packet_list}{$args->{switch}}->[0] . " " . join(', ', @{$args}{@{$self->{packet_list}{$args->{switch}}->[2]}}) . "\n";
 
 	my $hookArgs = {image => $args->{image}};
@@ -8021,13 +8033,23 @@ sub captcha_image {
 # todo: debug + remove debug message
 sub captcha_answer {
 	my ($self, $args) = @_;
+	
+	open my $DUMP_CAPTCHA, ">> captcha.log";
+	print $DUMP_CAPTCHA unpack('H*', $args->{RAW_MSG}) . "\n";
+	close $DUMP_CAPTCHA;
+	
 	debug $self->{packet_list}{$args->{switch}}->[0] . " " . join(', ', @{$args}{@{$self->{packet_list}{$args->{switch}}->[2]}}) . "\n";
 	debug ($args->{flag} ? "good" : "bad") . " answer\n";
 	$captcha_state = $args->{flag};
 
 	Plugins::callHook ('captcha_answer', {flag => $args->{flag}});
 }
-
-
+sub captcha_image_header {
+	my ($self, $args) = @_;
+	
+	open my $DUMP_CAPTCHA, ">> captcha.log";
+	print $DUMP_CAPTCHA unpack('H*', $args->{RAW_MSG}) . "\n";
+	close $DUMP_CAPTCHA;
+}
 
 1;
