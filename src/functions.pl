@@ -593,6 +593,7 @@ sub initConnectVars {
 		delete $char->{muted};
 		delete $char->{party};
 		delete $char->{statuses};
+		$char->{party}{joined} = 0;
 	}
 	undef @skillsID;
 	undef @partyUsersID;
@@ -665,6 +666,8 @@ sub initMapChangeVars {
 	undef $cookingList;
 	undef $rodexList;
 	undef $rodexWrite;
+	undef $skillExchangeItem;
+	undef $refineUI;
 	$captcha_state = 0;
 
 	$itemsList->clear();

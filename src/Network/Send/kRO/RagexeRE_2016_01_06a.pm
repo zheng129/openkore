@@ -31,15 +31,15 @@ sub new {
 		'0437' => ['character_move', 'a3', [qw(coordString)]],
 		'08A0' => ['friend_request', 'a*', [qw(username)]],# len 26
 		'07EC' => ['homunculus_command', 'v C', [qw(commandType, commandID)]],
-		'086A' => ['item_drop', 'v2', [qw(index amount)]],
-		'091D' => ['item_list_res', 'v V2 a*', [qw(len type action itemInfo)]],
+		'086A' => ['item_drop', 'a2 v', [qw(ID amount)]],
+		'091D' => ['item_list_window_selected', 'v V V a*', [qw(len type act itemInfo)]],
 		'0861' => ['item_take', 'a4', [qw(ID)]],
 		'087F' => ['map_login', 'a4 a4 a4 V C', [qw(accountID charID sessionID tick sex)]],
 		'088A' => ['party_join_request_by_name', 'Z24', [qw(partyName)]],
 		'083C' => ['skill_use', 'v2 a4', [qw(lv skillID targetID)]],
 		'0438' => ['skill_use_location', 'v4', [qw(lv skillID x y)]],
-		'0885' => ['storage_item_add', 'v V', [qw(index amount)]],
-		'0891' => ['storage_item_remove', 'v V', [qw(index amount)]],
+		'0885' => ['storage_item_add', 'a2 V', [qw(ID amount)]],
+		'0891' => ['storage_item_remove', 'a2 V', [qw(ID amount)]],
 		'0878' => ['storage_password'],
 		'035F' => ['sync', 'V', [qw(time)]],		
 	);
@@ -59,7 +59,7 @@ sub new {
 		friend_request 08A0
 		homunculus_command 07EC
 		item_drop 086A
-		item_list_res 091D
+		item_list_window_selected 091D
 		item_take 0861
 		map_login 087F
 		party_join_request_by_name 088A

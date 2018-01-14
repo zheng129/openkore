@@ -84,6 +84,7 @@ sub new {
 		'0187' => ['ban_check', 'a4', [qw(accountID)]],
 		'018A' => ['quit_request', 'v', [qw(type)]],
 		'0193' => ['actor_name_request', 'a4', [qw(ID)]],
+		'019F' => ['pet_capture', 'a4', [qw(ID)]],
 		'01B2' => ['shop_open'], # TODO
 		'012E' => ['shop_close'], # len 2
 		'01D5' => ['npc_talk_text', 'v a4 Z*', [qw(len ID text)]],
@@ -119,7 +120,7 @@ sub new {
 		'0437' => ['character_move','a3', [qw(coords)]],
 		'0443' => ['skill_select', 'V v', [qw(why skillID)]],
 		'07D7' => ['party_setting', 'V C2', [qw(exp itemPickup itemDivision)]],
-		'07E4' => ['item_list_res', 'v V2 a*', [qw(len type action itemInfo)]],
+		'07E4' => ['item_list_window_selected', 'v V V a*', [qw(len type act itemInfo)]],
 		'0801' => ['buy_bulk_vender', 'x2 a4 a4 a*', [qw(venderID venderCID itemInfo)]], #Selling store
 		'0802' => ['booking_register', 'v8', [qw(level MapID job0 job1 job2 job3 job4 job5)]],
 		'0804' => ['booking_search', 'v3 V s', [qw(level MapID job LastIndex ResultCount)]],
@@ -135,6 +136,7 @@ sub new {
 		'0844' => ['cash_shop_open'],#2
 		'0848' => ['cash_shop_buy_items', 's s V V s', [qw(len count item_id item_amount tab_code)]], #item_id, item_amount and tab_code could be repeated in order to buy multiple itens at once
 		'084A' => ['cash_shop_close'],#2
+		'08B5' => ['pet_capture', 'a4', [qw(ID)]],
 		'08B8' => ['send_pin_password','a4 Z*', [qw(accountID pin)]],
 		'08BA' => ['new_pin_password','a4 Z*', [qw(accountID pin)]],
 		'08C9' => ['request_cashitems'],#2
@@ -158,6 +160,9 @@ sub new {
 		'0A08' => ['rodex_open_write_mail', 'Z24', [qw(name)]],   # 26 -- RodexOpenWriteMail
 		'0A13' => ['rodex_checkname', 'Z24', [qw(name)]],   # 26 -- RodexCheckName
 		'0A6E' => ['rodex_send_mail', 'v Z24 Z24 V2 v v V a* a*', [qw(len receiver sender zeny1 zeny2 title_len body_len char_id title body)]],   # -1 -- RodexSendMail
+		'0AA1' => ['refineui_select', 'a2' ,[qw(index)]],
+		'0AA3' => ['refineui_refine', 'a2 v C' ,[qw(index catalyst bless)]],
+		'0AA4' => ['refineui_close', '' ,[qw()]],
 	);
 	$self->{packet_list}{$_} = $packets{$_} for keys %packets;
 	
@@ -187,6 +192,9 @@ sub shuffle {
 	foreach ( sort keys %shuffle ) {
 		# We can only patch packets we know about.
 		next if !$self->{packet_list}->{$_};
+		# Ignore changes to packets which aren't used by this server.
+		my $handler = $self->{packet_list}->{$_}->[0];
+		next if $self->{packet_lut}->{$handler} && $self->{packet_lut}->{$handler} ne $_;
 		$new->{ $shuffle{$_} } = $self->{packet_list}->{$_};
 	}
 
@@ -951,8 +959,11 @@ sub sendPartyOption {
 
 sub sendPetCapture {
 	my ($self, $monID) = @_;
-	my $msg = pack('v a4', 0x019F, $monID);
-	$self->sendToServer($msg);
+	
+	$self->sendToServer($self->reconstruct({
+		switch => 'pet_capture',
+		ID => $monID,
+	}));
 	debug "Sent pet capture: ".getHex($monID)."\n", "sendPacket", 2;
 }
 

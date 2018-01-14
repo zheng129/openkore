@@ -420,6 +420,7 @@ sub processDrop {
 ##### PORTALREADD #####
 # Automatically adds the last missing portals to portals_lut
 sub processReAddMissingPortals {
+	return unless ($config{route_reAddMissingPortals});
 	return unless (@portals_lut_missed);
 	return unless (timeOut($portals_lut_missed[0]{time}, $timeout{ai_portal_re_add_missed}{timeout}));
 	my $portal = shift(@portals_lut_missed);
@@ -785,7 +786,7 @@ sub processTake {
 			} else {
 				my $pos = $item->{pos};
 				message TF("Routing to (%s, %s) to take %s (%s), distance %s\n", $pos->{x}, $pos->{y}, $item->{name}, $item->{binID}, $dist);
-				ai_route($field->baseName, $pos->{x}, $pos->{y}, maxRouteDistance => $config{'attackMaxRouteDistance'});
+				ai_route($field->baseName, $pos->{x}, $pos->{y}, maxRouteDistance => $config{'attackMaxRouteDistance'}, noSitAuto => 1);
 			}
 
 		} elsif (timeOut($timeout{ai_take})) {
@@ -1125,7 +1126,7 @@ sub processAutoMakeArrow {
 sub processAutoStorage {
 	# storageAuto - chobit aska 20030128
 	if (AI::is("", "route", "sitAuto", "follow")
-		  && $config{storageAuto} && ($config{storageAuto_npc} ne "" || $config{storageAuto_useChatCommand})
+		  && $config{storageAuto} && ($config{storageAuto_npc} ne "" || $config{storageAuto_useChatCommand} || $config{storageAuto_useItem})
 		  && !$ai_v{sitAuto_forcedBySitCommand}
 		  && (($config{'itemsMaxWeight_sellOrStore'} && percent_weight($char) >= $config{'itemsMaxWeight_sellOrStore'})
 		      || (!$config{'itemsMaxWeight_sellOrStore'} && percent_weight($char) >= $config{'itemsMaxWeight'}))
@@ -1143,7 +1144,7 @@ sub processAutoStorage {
 
 	} elsif (AI::is("", "route", "attack")
 		  && $config{storageAuto}
-		  && ($config{storageAuto_npc} ne "" || $config{storageAuto_useChatCommand})
+		  && ($config{storageAuto_npc} ne "" || $config{storageAuto_useChatCommand} || $config{storageAuto_useItem})
 		  && !$ai_v{sitAuto_forcedBySitCommand}
 		  && !AI::inQueue("storageAuto")
 		  && $char->inventory->isReady()) {
@@ -1225,17 +1226,18 @@ sub processAutoStorage {
 
 		my $do_route;
 
-		if (!$config{storageAuto_useChatCommand}) {
+		if (!$config{storageAuto_useChatCommand} && !$config{storageAuto_useItem}) {
 			# Stop if the specified NPC is invalid
 			$args->{npc} = {};
-			getNPCInfo($config{'storageAuto_npc'}, $args->{npc});
+			getNPCInfo($config{storageAuto_standpoint} || $config{'storageAuto_npc'}, $args->{npc});
 			if (!defined($args->{npc}{ok})) {
 				$args->{done} = 1;
 				return;
 			}
 			if (!AI::args->{distance}) {
-				# Calculate variable or fixed (old) distance
-				if ($config{'storageAuto_minDistance'} && $config{'storageAuto_maxDistance'}) {
+				if ($config{storageAuto_standpoint}) {
+					AI::args->{distance} = 1;
+				} elsif ($config{'storageAuto_minDistance'} && $config{'storageAuto_maxDistance'}) {	# Calculate variable or fixed (old) distance
 					AI::args->{distance} = $config{'storageAuto_minDistance'} + round(rand($config{'storageAuto_maxDistance'} - $config{'storageAuto_minDistance'}));
 				} else {
 					AI::args->{distance} = $config{'storageAuto_distance'};
@@ -1280,6 +1282,29 @@ sub processAutoStorage {
 			if (!defined($args->{sentStore})) {
 				if ($config{storageAuto_useChatCommand}) {
 					$messageSender->sendChat($config{storageAuto_useChatCommand});
+				} elsif ($config{storageAuto_useItem}) {
+					my $itemToOpenStorageWith = Actor::Item::get($config{storageAuto_useItem_item});
+					
+					if (!$itemToOpenStorageWith) {
+						error TF("Cannot find item %s to open storage\n", $config{storageAuto_useItem_item});
+						
+						if ($config{storageAuto_npc}) {
+							warning TF("Falling back to regular npc at %s, disabling storageAuto_useItem\n", $config{storageAuto_npc});
+							configModify("storageAuto_useItem", 0);
+						} else {
+							warning T("No fallback npc specified, disabling storageAuto\n");
+							configModify("storageAuto", 0);
+							AI::dequeue if (AI::action eq "storageAuto");
+						}
+						return;
+					}
+					
+					if (timeOut($timeout{ai_storageAuto_useItem})) {
+						debug TF("Consuming item %s to open storage\n", $config{storageAuto_useItem});
+						
+						$itemToOpenStorageWith->use;
+						$timeout{ai_storageAuto_useItem}{time} = time;
+					}
 				} else {
 					if ($config{'storageAuto_npc_type'} eq "" || $config{'storageAuto_npc_type'} eq "1") {
 						warning T("Warning storageAuto has changed. Please read News.txt\n") if ($config{'storageAuto_npc_type'} eq "");
@@ -1293,8 +1318,11 @@ sub processAutoStorage {
 					} elsif ($config{'storageAuto_npc_type'} ne "" && $config{'storageAuto_npc_type'} ne "1" && $config{'storageAuto_npc_type'} ne "2" && $config{'storageAuto_npc_type'} ne "3") {
 						error T("Something is wrong with storageAuto_npc_type in your config.\n");
 					}
+					
+					my $realpos = {};
+					getNPCInfo($config{storageAuto_npc}, $realpos);
 
-					ai_talkNPC($args->{npc}{pos}{x}, $args->{npc}{pos}{y}, $config{'storageAuto_npc_steps'});
+					ai_talkNPC($realpos->{pos}{x}, $realpos->{pos}{y}, $config{'storageAuto_npc_steps'});
 				}
 
 				#delete $ai_v{temp}{storage_opened};
@@ -1682,6 +1710,7 @@ sub processAutoSell {
 
 			$args->{sentSellPacket_time} = time;
 			
+			Plugins::callHook('AI_sell_auto_done');
 		}
 	}
 }
@@ -1731,6 +1760,7 @@ sub processAutoBuy {
 		$ai_v{'temp'}{'var'} = AI::args->{'forcedBySell'};
 		$ai_v{'temp'}{'var2'} = AI::args->{'forcedByStorage'};
 		AI::dequeue;
+		Plugins::callHook('AI_buy_auto_done');
 
 		if ($ai_v{'temp'}{'var'} && $config{storageAuto}) {
 			AI::queue("storageAuto", {forcedBySell => 1});
@@ -1739,6 +1769,7 @@ sub processAutoBuy {
 		}
 
 	} elsif (AI::action eq "buyAuto" && timeOut($timeout{ai_buyAuto_wait})) {
+		Plugins::callHook('AI_buy_auto');
 		my $args = AI::args;
 		
 		if (exists $args->{sentBuyPacket_time} && exists $args->{index_failed}{$args->{lastIndex}}) {
@@ -2568,7 +2599,7 @@ sub processPartySkillUse {
 					next if (($char->{slaves}{$ID} ne $slavesList->getByID($ID)) && !$config{"partySkill_$i"."_notPartyOnly"});
 				} elsif ($playersList->getByID($ID)) {
 					unless ($config{"partySkill_$i"."_notPartyOnly"}) {
-						next unless $char->{party} && $char->{party}{users}{$ID};
+						next unless $char->{party}{joined} && $char->{party}{users}{$ID};
 						
 						# party member should be online, otherwise it's another character on the same account (not in party)
 						next unless $char->{party}{users}{$ID}{online};
@@ -2626,7 +2657,7 @@ sub processPartySkillUse {
 			my $hp_diff;
 			my $modifier = 1 + int(($char->{skills}{HP_MEDITATIO}{lv} * 2) / 100);
 			
-			if ($char->{party} && $char->{party}{users}{$party_skill{targetID}} && $char->{party}{users}{$party_skill{targetID}}{hp}) {
+			if ($char->{party}{joined} && $char->{party}{users}{$party_skill{targetID}} && $char->{party}{users}{$party_skill{targetID}}{hp}) {
 				$hp_diff = $char->{party}{users}{$party_skill{targetID}}{hp_max} - $char->{party}{users}{$party_skill{targetID}}{hp};
 			} elsif($char->{mercenary} && $char->{mercenary}{hp} && $char->{mercenary}{hp_max}) {
 				$hp_diff = $char->{mercenary}{hp_max} - $char->{mercenary}{hp};
@@ -3026,7 +3057,7 @@ sub processItemsGather {
 				my $item = $items{$ID};
 				my $pos = $item->{pos};
 				message TF("Routing to (%s, %s) to take %s (%s), distance %s\n", $pos->{x}, $pos->{y}, $item->{name}, $item->{binID}, $dist);
-				ai_route($field->baseName, $pos->{x}, $pos->{y}, maxRouteDistance => $config{'attackMaxRouteDistance'});
+				ai_route($field->baseName, $pos->{x}, $pos->{y}, maxRouteDistance => $config{'attackMaxRouteDistance'}, noSitAuto => 1);
 			}
 
 		} else {
@@ -3313,7 +3344,7 @@ sub processPartyShareAuto {
 	if (timeOut($timeout{ai_partyShareCheck})) {
 		if (!exists($char->{party}{shareTimes})) { $char->{party}{shareTimes} = 1; }
 		
-		if (($config{partyAutoShare} || $config{partyAutoShareItem} || $config{partyAutoShareItemDiv}) && $char->{party} && %{$char->{party}} && ($char->{party}{share} ne $config{partyAutoShare} || $char->{party}{itemPickup} ne $config{partyAutoShareItem} || $char->{party}{itemDivision} ne $config{partyAutoShareItemDiv})) {
+		if (($config{partyAutoShare} || $config{partyAutoShareItem} || $config{partyAutoShareItemDiv}) && $char->{party}{joined} && ($char->{party}{share} ne $config{partyAutoShare} || $char->{party}{itemPickup} ne $config{partyAutoShareItem} || $char->{party}{itemDivision} ne $config{partyAutoShareItemDiv})) {
 			$messageSender->sendPartyOption($config{partyAutoShare}, $config{partyAutoShareItem}, $config{partyAutoShareItemDiv});
 			$char->{party}{shareTimes}++;
 			if ($char->{party}{shareTimes} > 5) {

@@ -31,7 +31,7 @@ use Carp::Assert;
 use Digest::MD5;
 use Math::BigInt;
 
-use Globals qw(%config $encryptVal $bytesSent $conState %packetDescriptions $enc_val1 $enc_val2 $char $masterServer $syncSync $accountID %timeout %talk %masterServers);
+use Globals qw(%config $encryptVal $bytesSent $conState %packetDescriptions $enc_val1 $enc_val2 $char $masterServer $syncSync $accountID %timeout %talk %masterServers $skillExchangeItem $refineUI);
 use I18N qw(bytesToString stringToBytes);
 use Utils qw(existsInList getHex getTickCount getCoordString makeCoordsDir);
 use Misc;
@@ -876,7 +876,7 @@ sub sendCharDelete2Accept {
 
 sub reconstruct_char_delete2_accept {
 	my ($self, $args) = @_;
-	debug "Sent sendCharDelete2Accept. CharID: $args->{CharID}, Code: $args->{code}\n", "sendPacket", 2;
+	debug "Sent sendCharDelete2Accept. CharID: $args->{charID}, Code: $args->{code}\n", "sendPacket", 2;
 }
 
 # 0x082B,6
@@ -1154,6 +1154,84 @@ sub sendDealAddItem {
 		amount => $amount
 	}));
 	debug sprintf("Sent Deal Add Item: %s, $amount\n", unpack('v', $ID)), "sendPacket", 2;
+}
+
+##
+# sendItemListWindowSelected
+# @param num Number of items
+# @param type 0: Change Material
+#             1: Elemental Analysis (Level 1: Pure to Rough)
+#             2: Elemental Analysis (Level 1: Rough to Pure)
+# @param act 0: Cancel
+#            1: Process
+# @param items List of items [itemIndex,amount,itemName]
+# @author [Cydh]
+##
+sub sendItemListWindowSelected {
+	my ($self, $num, $type, $act, $items) = @_;
+	my $len = ($num * 4) + 12;
+	$self->sendToServer($self->reconstruct({
+		switch => 'item_list_window_selected',
+		len => $len,
+		type => $type,
+		act => $act,
+		items => $items,
+	}));
+	if ($act == 1) {
+		debug "Selected items: ".(join ', ', map {"$_->{itemIndex} x $_->{amount}"} @$items)."\n", "sendPacket";
+	} else {
+		debug "Selected items were canceled.\n", "sendPacket";
+	}
+	undef $skillExchangeItem;
+}
+
+sub parse_item_list_window_selected {
+	my ($self, $args) = @_;
+	@{$args->{items}} = map {{ itemIndex => unpack('v', $_), amount => unpack('v', $_) }} unpack '(a4)*', $args->{itemInfo};
+}
+
+sub reconstruct_item_list_window_selected {
+	my ($self, $args) = @_;
+	$args->{itemInfo} = pack '(a4)*', map { pack 'v2', @{$_}{qw(itemIndex amount)} } @{$args->{items}};
+}
+
+# Select equip for refining
+# '0AA1' => ['refineui_select', 'a2' ,[qw(index)]],
+# @param itemIndex OpenKore's Inventory Item Index
+# @author [Cydh]
+sub sendRefineUISelect {
+	my ($self, $itemIndex) = @_;
+	$self->sendToServer($self->reconstruct({
+		switch => 'refineui_select',
+		index => $itemIndex,
+	}));
+	debug "Checking item for RefineUI\n", "sendPacket";
+}
+
+# Continue to refine equip
+# '0AA3' => ['refineui_refine', 'a2 v C' ,[qw(index catalyst bless)]],
+# @param itemIndex OpenKore's Inventory Item Index
+# @param materialNameIDMaterial's NameID
+# @param useCatalyst Catalyst (Blacksmith Blessing) toggle. 0 = Not using, 1 = Use catalyst
+# @author [Cydh]
+sub sendRefineUIRefine {
+	my ($self, $itemIndex, $materialNameID, $useCatalyst) = @_;
+	$self->sendToServer($self->reconstruct({
+		switch => 'refineui_refine',
+		index => $itemIndex,
+		catalyst => $materialNameID,
+		bless => $useCatalyst,
+	}));
+	debug "Refining using RefineUI\n", "sendPacket";
+}
+
+# Cancel RefineUI usage
+# '0AA4' => ['refineui_close', '' ,[qw()]],
+# @author [Cydh]
+sub sendRefineUIClose {
+	my $self = shift;
+	$self->sendToServer($self->reconstruct({switch => 'refineui_close'}));
+	debug "Closing RefineUI\n", "sendPacket";
 }
 
 1;
