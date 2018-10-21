@@ -28,14 +28,10 @@ git clone https://github.com/OpenKore/openkore.git
 * Remember, developers are doing this on free time.
 
 ### Weekly Maintence on official Servers
-Some official servers (like bRO and iRO) have a weekly maintence.
-
-When this weekly maintence happens, openkore stops working on this server.
-
-To make it work again, a developer have to update openkore.
-
-So if you see a green message written: **timeout on map server... reconnecting....** that means you have to wait for developer to update openkore.
-
+Some official servers (like bRO and iRO) have a weekly maintence.  
+When this weekly maintence happens, openkore stops working on this server.  
+To make it work again, a developer have to update openkore.  
+So if you see a green message written: **timeout on map server... reconnecting....** that means you have to wait for developer to update openkore.  
 So please wait, don't need to make an issue to tell this.
 
 ### Status of botting on Official Servers
@@ -54,7 +50,7 @@ So please wait, don't need to make an issue to tell this.
 | [tRO](https://ro.exe.in.th/) | Thailand RO | EAC | Need Verification | N/A |
 | [mRO](https://roextreme.com/mysg/main) | Malaysia RO | EAC | Not Working | N/A |
 | [phRO](https://ragnarokonline.com.ph/main) | Philippines RO | EAC | Not Working | N/A |
-| [ruRO](https://ru.4game.com/ro/play/) | Russia RO | *** | Need Verification | N/A |
+| [ruRO](https://ru.4game.com/ro/play/) | Russia RO | Frost Security | Not Working | ya4ept |
 | [twRO](https://ro.gnjoy.com.tw/) | Taiwan RO | Cdclient | Not working | N/A |
 
 ## Contributing

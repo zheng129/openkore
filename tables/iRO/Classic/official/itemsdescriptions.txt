@@ -71796,3 +71796,32 @@ It is worth 2 Forgery Tokens
 Weight: 1
 Character Bound
 #
+
+20061#
+Return this certificate and the following items to Frank, the owner of the Laurel and Hatty Co. in Morroc to receive 1 Whisper Mask!
+400 Fabric
+200 Ectoplasm
+100 Horrendous Hairs
+1 Spiritual Crystal [Rhyncho]
+1 Spiritual Crystal [Phylla]
+1 Whisper Mask Certificate
+Shadowy rumors say the following about this certificate:
+It is Tier 1
+It is worth 1 Forgery Tokens
+Weight: 1
+Character Bound
+#
+
+20062#
+Return this certificate and the following items to Frank, the owner of the Laurel and Hatty Co. in Morroc to receive 1 Sleeper Hat!
+400 Mud Lumps
+200 Ectoplasm
+100 Mould Powder
+1 Deadly Noxious Herb
+1 Sleeper Hat Certificate
+Shadowy rumors say the following about this certificate:
+It is Tier 2
+It is worth 1 Forgery Tokens
+Weight: 1
+Character Bound
+#

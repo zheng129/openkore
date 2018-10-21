@@ -27,7 +27,7 @@ addTableFolders bRO
 charBlockSize 144
 pinCode 1
 charDeleteDateType 1
-sendCryptKeys 0x67CB570F, 0x4E7F6D76, 0x36A07C84
+sendCryptKeys 0x7E62134B, 0x5D9E379C, 0x6013444F
 blockingPlayerCancel 1
 rankingSystemType 1
 
@@ -49,7 +49,7 @@ addTableFolders bRO
 charBlockSize 144
 pinCode 1
 charDeleteDateType 1
-sendCryptKeys 0x67CB570F, 0x4E7F6D76, 0x36A07C84
+sendCryptKeys 0x7E62134B, 0x5D9E379C, 0x6013444F
 blockingPlayerCancel 1
 rankingSystemType 1
 
@@ -126,7 +126,7 @@ patchpath /patch02
 addTableFolders iRO/Renewal;iRO
 charBlockSize 145
 charDeleteDateType 1
-sendCryptKeys 0x10DD2E17, 0x66E94F45, 0x0B37760E
+sendCryptKeys 0x5F63429C, 0x0EB14A89, 0x5A756CEF
 blockingPlayerCancel 1
 rankingSystemType 1
 pauseCharLogin 1
@@ -174,7 +174,7 @@ charBlockSize 145
 pauseCharLogin 1
 patchserver ropatch1.gravityus.com
 patchpath /repatch
-sendCryptKeys 0x36017821, 0x787D2E96, 0x514B10B3
+sendCryptKeys 0x53276CA0, 0x571B46A8, 0x654B52EB
 rankingSystemType 1
 pauseCharLogin 1
 
@@ -245,11 +245,11 @@ gameGuard 0
 
 # https://ragnarokonline.com.ph/main
 [Philippines - pRO: Valkyrie]
-ip 202.57.118.235
+ip 139.99.113.156
 port 6900
-master_version 15
-version 1
-secureLogin 1
+master_version 217
+version 24
+secureLogin 0
 secureLogin_type 0
 secureLogin_requestCode
 secureLogin_account 0
