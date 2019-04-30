@@ -57,28 +57,108 @@
 # Monsters not found in this file, or flags not specified will default to:
 # <attack> = 1
 
+all -1
+3805 2 0 1
+3806 2 0 1
+3807 2 0 1
+3808 2 0 1
+3809 2 0 1
+Thief Bug 2 0 1
+#Thief Bug Egg 2 0 1
+1031 2 0 1
+1076 2 0 1
+1048 2 0 1 #Thief Bug Egg
+1004 2 0 1 #Hornet
+2680 2 0 1
+1052 2 0 1 #Rocker
+1167 2 0 1 #Savagebaby
+#1097 2 0 1
+1005 2 0 1
+1015 2 0 1
+Zombie 2 0 1
+Skeleton 2 0 1
+Poporing 2 0 1
+Familiar 2 0 1
+2606 2 0 1
+1273 2 0 1
+1023 2 0 1
+1686 2 0 1
+Furious Orc Warrior 0 2 0
+1005 2 0 1
+#2722 2 0 1
+#1152 2 0 1
+1165 2 0 1 0 0 0 0 0 1.1
+1127 2 0 1 0 0 0 0 0 0.1
+1119 2 0 1 0 0 0 0 0 1
+1139 2 0 1
+1155 2 0 1
+1037 2 0 1
+1008 2 0 1
+Poring 2 0 1
+Chonchon 2 0 1
+Margaretha Sorin -1 1
+Vocal -1 1
+1031 2 0 1 #Poporing
+1242 2 0 1 #Marin
+1002 2 0 1
+1113 2 0 1
+1090 2 0 1
+2703 2 0 1
+#Orc Dun
+1153 2 0 1 #Orc Zombie
+1152 2 0 1 #Orc Skeleton
+1111 2 0 1
+1005 2 0 1 #Familiar
+1042 2 0 1 #Steel Chonchon
+2723 2 0 1 #Elusive Orc Zombie
+Solid Petite 1 0 0
+Siroma 2 0 1
+Gazeti -1 1
+Roween -1 1
+Solid Petite -1 1
+1012 2 0 1
+1094 2 0 1
+2678 2 0 1
+Bongun 2 0 1
+Munak 2 0 1
+Archer Skeleton 2 0 1
+Soldier Skeleton 2 0 1
+Hydra 2 0 1
+Poporing 2 0 1
+Mandragora 2 0 1
+Nine Tail 2 0 1
+1016 2 0 1
+1028 2 0 1
+
+Magmaring 2 0 1
+Muscipular 2 0 1
+Drosera 2 0 1
+2769 2 0 1
+
+Roween 2 0 1
+Anopheles 2 0 1
 
 ##### Eggs #####
-Ant's Egg 0 0 0
+Ant's Egg 2 0 1
 PecoPeco's Egg 0 0 0
 Pupa 0 0 0
-Thief Bug's Egg 0 0 0
+Thief Bug's Egg 2 0 1
 
 ##### Alchemist Summons ####
 # Summoned Parasite
-1555 0 0 0 
+1555 0 0 0
 
 # Summoned Flora
-1575 0 0 0 
+1575 0 0 0
 
 # Summoned Hydra
-1579 0 0 0 
+1579 0 0 0
 
 # Summoned Mandragora
-1589 0 0 0 
+1589 0 0 0
 
 # Summoned Geographer
-1590 0 0 0 
+1590 0 0 0
 
 ##### Plants #####
 Black Mushroom 0 0 0
@@ -141,6 +221,19 @@ Yellow Plant 0 0 0
 6045 -1 0 0
 6046 -1 0 0
 
+##### Monster Mercenary #####
+# Mimic (Monster)
+1191 -1 0 0
+# Disguise (Monster)
+1506 -1 0 0
+# Alice (Monster)
+1275 -1 0 0
+# Wild Rose (Mercenary version, M_WILD_ROSE)
+1965 -1 0 0
+# Doppelganger (Mercenary version, M_DOPPELGANGER)
+1966 -1 0 0
+# Egnigem Cenia (Mercenary version, M_YGNIZEM)
+1967 -1 0 0
 
 ##### MVPs and Dangerous Monsters #####
 ##MOB ID : MVP
@@ -188,7 +281,7 @@ Yellow Plant 0 0 0
 2156 -1 1 0 #Leak
 1646 -1 1 0 #Lord Knight Seyren
 1373 -1 1 0 #Lord of Death
-2131 -1 1 0 #Lost Dragon 
+2131 -1 1 0 #Lost Dragon
 1147 -1 1 0 #Maya
 1289 -1 1 0 #Maya Purple
 1059 -1 1 0 #Mistress

@@ -3,12 +3,12 @@
 
 ######## Login options and server-specific options ########
 
-master
-server
-username
-password
+master International - iRO: Ymir/Yggdrasil/Valkyrie
+server 1
+username xing19930925
+password Zyx19304
 loginPinCode
-char
+char 0
 
 # Poseidon Settings (http://wiki.openkore.com/index.php/PoseidonServer)
 # They must be the same as Query Server config in Poseidon.txt
@@ -36,13 +36,12 @@ XKore_ID
 
 # It is not advised to set secureAdminPassword if you're using Xkore 2
 secureAdminPassword 1
-adminPassword
+adminPassword graivaip
 callSign
 commandPrefix ;
 callSignGM 0
 inGameAuth 0
 
-pauseCharLogin 1
 pauseCharServer 0
 pauseMapServer 0
 ignoreInvalidLogin 0
@@ -60,31 +59,31 @@ alias_heal sp 28
 allowedMaps
 allowedMaps_reaction 1
 
-attackAuto 2
+attackAuto 1
 attackAuto_party 1
 attackAuto_onlyWhenSafe 0
 attackAuto_followTarget 1
-attackAuto_inLockOnly 1
+attackAuto_inLockOnly 2
 attackAuto_notInTown 1
-attackDistance 1.5
-attackDistanceAuto 0
-attackMaxDistance 2.5
+attackDistance 1
+attackDistanceAuto 1
+attackMaxDistance 1
 attackMaxRouteDistance 100
 attackMaxRouteTime 4
 attackMinPlayerDistance 2
 attackMinPortalDistance 4
 attackUseWeapon 1
 attackNoGiveup 0
-attackCanSnipe 0
+attackCanSnipe 1
 attackCheckLOS 0
-attackLooters 0
+attackLooters 1
 attackChangeTarget 1
 aggressiveAntiKS 0
 
-autoMoveOnDeath 0
+autoMoveOnDeath 1
 autoMoveOnDeath_x
 autoMoveOnDeath_y
-autoMoveOnDeath_map
+autoMoveOnDeath_map payon
 
 attackEquip_topHead
 attackEquip_midHead
@@ -175,18 +174,22 @@ followBot 0
 followRandom 0
 followRandomDistance 4
 
-itemsTakeAuto 2
+itemsTakeAuto 1
 itemsTakeAuto_party 0
-itemsGatherAuto 2
+itemsGatherAuto 1
 itemsMaxWeight 89
 itemsMaxWeight_sellOrStore 48
 itemsMaxNum_sellOrStore 99
 cartMaxWeight 7900
-itemsTakeAuto_new 0
+itemsTakeAuto_new 1
 itemsTakeGreed 0
 itemsCheckWeight 1
 
-lockMap
+lockMap pay_dun00
+#prt_fild07
+#prt_fild05
+#lockMap ve_fild03
+#lockMap gef_fild06
 lockMap_x
 lockMap_y
 lockMap_randX
@@ -196,25 +199,25 @@ route_escape_reachedNoPortal 1
 route_escape_randomWalk 1
 route_escape_shout
 route_avoidWalls 1
-route_randomWalk 1
+route_randomWalk 0
 route_randomWalk_inTown 0
 route_randomWalk_maxRouteTime 75
-route_maxWarpFee
+route_maxWarpFee 8000
 route_maxNpcTries 5
-route_teleport 0
+route_teleport 1
 route_teleport_minDistance 150
-route_teleport_maxTries 8
+route_teleport_maxTries 15
 route_teleport_notInMaps
 route_step 15
 route_removeMissingPortals_NPC 1
-route_removeMissingPortals 0
+route_removeMissingPortals 1
 route_tryToGuessMissingPortalByDistance 1
 route_reAddMissingPortals 1
 
 runFromTarget 0
 runFromTarget_dist 6
 
-saveMap
+saveMap prontera #prt_fild05 veins pay_arche geffen
 saveMap_warpToBuyOrSell 1
 saveMap_warpChatCommand
 memo1
@@ -226,43 +229,40 @@ shopAuto_open 0
 shop_random 0
 shop_useSkill 1
 
-buyerShopAuto_open 0
-buyerShop_random 0
-
-sitAuto_hp_lower 40
-sitAuto_hp_upper 100
+sitAuto_hp_lower 0
+sitAuto_hp_upper 0
 sitAuto_sp_lower 0
 sitAuto_sp_upper 0
 sitAuto_follow 0
 sitAuto_over_50 0
-sitAuto_idle 1
+sitAuto_idle 0
 sitAuto_look
 sitAuto_look_from_wall
 sitTensionRelax 0
 
-statsAddAuto 0
-statsAddAuto_list
-statsAddAuto_dontUseBonus 0
-statsAdd_over_99 1
+statsAddAuto 1
+statsAddAuto_list agi 40
+statsAddAuto_dontUseBonus 1
+statsAdd_over_99 0
 
 skillsAddAuto 0
-skillsAddAuto_list
+skillsAddAuto_list 50 10
 
 tankMode 0
 tankModeTarget
 
-teleportAuto_hp 10
+teleportAuto_hp 5
 teleportAuto_sp 0
-teleportAuto_idle 0
-teleportAuto_portal 0
-teleportAuto_search 0
+teleportAuto_idle 1
+teleportAuto_portal 1
+teleportAuto_search 1
 teleportAuto_minAggressives 0
-teleportAuto_minAggressivesInLock 0
+teleportAuto_minAggressivesInLock 8
 teleportAuto_onlyWhenSafe 0
-teleportAuto_maxDmg 500
-teleportAuto_maxDmgInLock 0
+teleportAuto_maxDmg 1000
+teleportAuto_maxDmgInLock 2500
 teleportAuto_deadly 1
-teleportAuto_useSkill 1
+teleportAuto_useSkill 0
 teleportAuto_useChatCommand
 teleportAuto_allPlayers 0
 teleportAuto_notPlayers
@@ -282,7 +282,7 @@ teleportAuto_useItemForRespawn
 teleportAuto_item1
 teleportAuto_item2
 
-dealAuto 1
+dealAuto 0
 dealAuto_names
 partyAuto 1
 partyAutoShare 0
@@ -307,9 +307,9 @@ wx_map_monsterSticking 1
 wx_map_npcSticking 1
 wx_map_playersSticking 1
 wx_map_portalSticking 5
-wx_map_route
+wx_map_route 1
 wx_npcTalk
-wx_captcha
+wx_captcha 1
 showAllDamage 0
 manualURL http://wiki.openkore.com/index.php?title=Manual
 forumURL http://forums.openkore.com
@@ -319,8 +319,6 @@ logPrivateChat 1
 logPartyChat 1
 logGuildChat 1
 logSystemChat 1
-logLocalBroadcast 1
-logShop 1
 logEmoticons
 logConsole 1
 logAppendUsername 1
@@ -330,7 +328,6 @@ logDead 1
 
 chatTitleOversize 0
 shopTitleOversize 0
-buyerShopTitleOversize 0
 
 sleepTime 10000
 
@@ -491,17 +488,21 @@ attackSkillSlot {
 	manualAI 0
 }
 
-attackComboSlot {
-	afterSkill
-	waitBeforeUse
-	dist 1.5
-	isSelfSkill 1
-	target_hp
-	target_deltaHp
-	monsters
-	notMonsters
-	monstersCount
+/*
+attackComboSlot Raging Quadruple Blow {
+lvl 5
+sp > 30
+afterSkill Raging Trifecta Blow
+waitBeforeUse 0.3
+dist 1.5
+isSelfSkill 1
+target_hp
+target_deltaHp
+monsters 1139, 1155, 1037
+notMonsters
+monstersCount
 }
+*/
 
 doCommand {
 	hp
@@ -530,6 +531,109 @@ doCommand {
 	inMap
 	manualAI 0
 }
+
+/*
+useSelf_skill Blessing {
+lvl 10
+sp > 70
+whenStatusInactive Blessing
+inLockOnly 1
+notWhileSitting 0
+notInTown 0
+timeout 3
+}
+
+useSelf_skill Summon Spirit Sphere {
+lvl 5
+sp > 100
+spirit < 5
+notWhileSitting 0
+notInTown 0
+timeout 0.5
+}
+
+useSelf_skill Increase AGI {
+lvl 10
+sp > 70
+whenStatusInactive Increase AGI
+inLockOnly 1
+notWhileSitting 0
+notInTown 0
+timeout 3
+}
+
+useSelf_skill Heal {
+lvl 3
+hp < 200
+sp > 50
+}
+
+useSelf_skill 60 {
+lvl 10
+sp > 50
+whenStatusInactive Twohand Quicken
+inLockOnly 1
+notWhileSitting 0
+notInTown 1
+timeout 3
+}
+*/
+
+/*
+useSelf_skill Aura Blade {
+lvl 5
+sp > 50
+whenStatusInactive Aura Blade
+inLockOnly 1
+notWhileSitting 0
+notInTown 1
+timeout 3
+}
+
+useSelf_skill 357 {
+lvl 5
+sp > 50
+inLockOnly 1
+notWhileSitting 0
+notInTown 1
+timeout 50
+}
+*/
+
+/*
+useSelf_skill Improve Concentration {
+lvl 10
+whenStatusInactive Improve Concentration
+inLockOnly 1
+notWhileSitting 0
+notInTown 1
+}
+*/
+
+/*
+useSelf_skill Falcon Eyes {
+lvl 10
+sp > 15 % #Change according to your need#
+	#whenStatusInactive EFST_TRUESIGHT
+inLockOnly 1
+stopWhenHit 0
+notWhileSitting 1
+notInTown 1
+timeout 30
+}
+*/
+
+/*
+useSelf_skill Wind Walker {
+lvl 10
+sp > 15 % #Change according to your need#
+whenStatusInactive Wind Walker
+stopWhenHit 0
+notWhileSitting 0
+notInTown 0
+timeout 0
+}
+*/
 
 useSelf_skill {
 	lvl 10
@@ -614,6 +718,48 @@ monsterSkill {
 	# Target Monster Conditions
 }
 
+/*
+attackSkillSlot Bash {
+lvl 10
+dist 1.5
+sp > 15
+monsters Marin, Elusive Poporing
+}
+
+attackSkillSlot 62 {
+lvl 10
+sp > 72
+isSelfSkill 0
+monsters 1139, 1155, 1037, Solid Petite, 1782
+monstersCount > 3
+}
+*/
+
+/*
+attackSkillSlot Double Strafe {
+lvl 10
+  #dist 10
+sp > 200
+  #aggressives >= 2
+	#monsters Siroma, Muscipular
+notMonsters Shining Plant, Black Mushroom
+inLockOnly 1
+notInTown 1
+timeout 0.44
+}
+
+
+attackSkillSlot Arrow Shower {
+lvl 10
+	#dist 10
+sp > 70
+aggressives > 2
+inLockOnly 1
+monsters
+notInTown 1
+}
+*/
+
 autoSwitch_default_rightHand
 autoSwitch_default_leftHand
 autoSwitch_default_arrow
@@ -641,7 +787,10 @@ equipAuto {
 	robe
 	armor
 	shoes
-	arrow
+	#arrow Arrow of Wind
+	#arrow Fire Arrow
+	#arrow Arrow
+	#arrow Silver Arrow
 	monsters
 	notMonsters
 	monstersCount
@@ -669,6 +818,87 @@ equipAuto {
 	manualAI 0
 }
 
+useSelf_item Yellow Herb {
+	hp < 95%
+	timeout 2
+}
+
+/*
+useSelf_item Grape {
+sp < 20
+timeout 1
+}
+*/
+
+useSelf_item Orange Potion {
+	hp < 35%
+	timeout 1
+}
+
+useSelf_item Milk {
+	hp < 80%
+	timeout 1
+}
+
+useSelf_item White Herb {
+	hp < 95%
+	timeout 1
+}
+
+/*
+useSelf_item Wind Arrow Quiver {
+inInventory Arrow of Wind <= 10
+timeout 0.7
+}
+
+useSelf_item Quiver {
+inInventory Arrow <= 10
+timeout 0.7
+}
+*/
+
+/*
+useSelf_item Fire Arrow Quiver {
+inInventory Fire Arrow <= 10
+timeout 0.7
+}
+*/
+
+useSelf_item Red Herb {
+	hp < 98%
+	timeout 1
+}
+
+useSelf_item Butterfly Wing {
+	hp < 4%
+	notInTown 1
+	timeout 2
+}
+
+
+useSelf_item Concentration Potion {
+whenStatusInactive Concentration Potion
+inLockOnly 1
+notInTown 1
+timeout 2
+}
+
+/*
+useSelf_item Awakening Potion {
+whenStatusInactive Awakening Potion
+inLockOnly 1
+notInTown 1
+timeout 2
+}
+
+useSelf_item Berserk Potion {
+whenStatusInactive Berserk Potion
+inLockOnly 1
+notInTown 1
+timeout 2
+}
+*/
+
 useSelf_item {
 	hp
 	sp
@@ -685,14 +915,14 @@ useSelf_item {
 	monsters
 	notMonsters
 	monstersCount
-	stopWhenHit 0
-	inLockOnly 0
-	notWhileSitting 0
-	notInTown 0
-	timeout
-	disabled 0
+	stopWhenHit
+	inLockOnly
+	notWhileSitting
+	notInTown
+	timeout 0
+	disabled
 	inInventory
-	manualAI 0
+	manualAI
 }
 
 ######## Autostorage/autosell ########
@@ -706,31 +936,185 @@ buyAuto {
 	maxAmount 3
 	batchSize
 	disabled 0
-	maxBase
-	minBase
 }
 
-sellAuto 0
-sellAuto_npc
+/*
+buyAuto Blue Gemstone {
+npc geffen_in 77 167
+standpoint
+distance 5
+price
+minAmount 2
+maxAmount 10
+batchSize 5
+disabled 0
+}
+*/
+
+buyAuto Butterfly Wing {
+	#npc prt_fild05 290 221
+	#npc ve_in 243 303
+	#npc geffen_in 77 167
+	#npc prt_in 126 76
+	#npc ra_in01 257 269
+	npc payon_in02 87 34
+	standpoint
+	distance 5
+	price
+	minAmount 1
+	maxAmount 3
+	batchSize 1
+	disabled 0
+}
+
+buyAuto Fly Wing {
+	#npc prt_fild05 290 221
+	#npc ve_in 243 303
+	#npc geffen_in 77 167
+	#npc prt_in 126 76
+	#npc ra_in01 257 269
+	npc payon_in02 87 34
+	standpoint
+	distance 5
+	price
+	minAmount 2
+	maxAmount 100
+	batchSize 10
+	disabled 0
+}
+
+buyAuto Orange Potion {
+	#npc ve_in 243 303
+	#npc geffen_in 77 167
+	#npc prt_in 126 76
+	#npc ra_in01 257 269
+	npc payon_in02 87 34
+	standpoint
+	distance 5
+	price
+	minAmount 1
+	maxAmount 30
+	batchSize 10
+	disabled 0
+}
+
+/*
+buyAuto Arrow {
+npc ve_in 243 303
+	#npc geffen_in 77 167
+	#npc prt_in 126 76
+	#npc ra_in01 257 269
+	#npc payon_in02 87 34
+standpoint
+distance 5
+price
+minAmount 5
+maxAmount 1500
+batchSize 50
+disabled 0
+}
+*/
+
+
+buyAuto Concentration Potion {
+	#npc ve_in 243 303
+	#npc geffen_in 77 167
+	#npc prt_in 126 76
+	#npc ra_in01 257 269
+	npc payon_in02 87 34
+	standpoint
+	distance 5
+	price
+	minAmount 0
+	maxAmount 3
+	batchSize 1
+	disabled 0
+}
+
+/*
+buyAuto Awakening Potion {
+npc ve_in 243 303
+	#npc geffen_in 77 167
+	#npc prt_in 126 76
+	#npc ra_in01 257 269
+	#npc payon_in02 87 34
+standpoint
+distance 5
+price
+minAmount 0
+maxAmount 5
+batchSize 1
+disabled 0
+}
+
+buyAuto White Potion {
+npc ve_in 243 303
+	#npc geffen_in 77 167
+	#npc prt_in 126 76
+	#npc ra_in01 257 269
+	#npc payon_in02 87 34
+standpoint
+distance 5
+price
+minAmount 1
+maxAmount 15
+batchSize 5
+disabled 0
+}
+*/
+
+/*
+buyAuto Pet Food {
+npc geffen 193 152
+standpoint
+distance 5
+price
+minAmount 1
+maxAmount 8
+batchSize 1
+disabled 0
+}
+*/
+
+sellAuto 1
+#sellAuto_npc payon 159 96 #payon
+#sellAuto_npc prt_in 126 76 #prontera
+#sellAuto_npc cmd_in01 79 182 #comodo
+#sellAuto_npc ra_in01 257 269  #rachel
+#sellAuto_npc prt_in 126 76
+#sellAuto_npc prt_fild05 290 221
+#sellAuto_npc payon_in02 87 34
+#sellAuto_npc geffen_in 77 167
+#sellAuto_npc morocc_in 141 60
+#sellAuto_npc ve_in 243 303
+sellAuto_npc payon_in02 87 34
 sellAuto_standpoint
 sellAuto_distance 5
 sellAuto_npc_steps s
 
-storageAuto 0
-storageAuto_npc
+storageAuto 1
+#storageAuto_npc pay_arche 55 123
+#storageAuto_npc geffen 120 62
+#storageAuto_npc geffen 203 123
+#storageAuto_npc prontera 146 89
+#storageAuto_npc prontera 35 208
+#storageAuto_npc prt_fild05 290 224
+#storageAuto_npc veins 208 128
+#storageAuto_npc rachel 109 138
+storageAuto_npc pay_arche 55 123
 storageAuto_standpoint
 storageAuto_distance 5
-storageAuto_npc_type 1
-storageAuto_npc_steps
+storageAuto_npc_type 3
+storageAuto_npc_steps c r1 r0
 storageAuto_password
 storageEncryptKey
 storageAuto_keepOpen 0
 storageAuto_useChatCommand
 storageAuto_useItem 0
 storageAuto_useItem_item
-storageAuto_notAfterDeath
+storageAuto_notAfterDeath 1
 relogAfterStorage 0
-minStorageZeny 50
+minStorageZeny 500
 
 npcTimeResponse
 npcWrongStepsMethod 0
@@ -741,6 +1125,30 @@ getAuto {
 	passive
 	disabled 0
 }
+
+/*
+getAuto Wind Arrow Quiver {
+minAmount 1
+maxAmount 3
+}
+
+getAuto Arrow of Wind {
+minAmount 1
+maxAmount 100
+}
+
+getAuto Quiver {
+minAmount 0
+maxAmount 8
+}
+*/
+
+/*
+getAuto Fire Arrow Quiver {
+minAmount 0
+maxAmount 3
+}
+*/
 
 ######## Debugging options; only useful for developers ########
 
@@ -758,4 +1166,4 @@ logToFile_Errors
 logToFile_Messages
 logToFile_Warnings
 history_max 50
-gameGuard 0
+macro_orphans terminate

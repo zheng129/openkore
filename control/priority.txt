@@ -11,3 +11,6 @@
 # Example (remove the comment character to activate them):
 #Hydra
 #Obeaune
+
+High Orc
+Orc Archer
